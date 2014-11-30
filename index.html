@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>qul angular</title>
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.0/angular.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+
+  <!-- Module -->
+  <script src="./js/app.js"></script>
+
+  <!-- Service -->
+  <script src="./js/service/UtilsService.js"></script>
+  <script src="./js/service/UnderscoreService.js"></script>
+  <script src="./js/service/PopupsService.js"></script>
+  <script src="./js/service/XHRManagerService.js"></script>
+  <script src="./js/service/XHRService.js"></script>
+
+  <!-- Directive -->
+  <script src="./js/directive/PopupsDirective.js"></script>
+  <script src="./js/directive/PopupDirective.js"></script>
+
+  <!-- Controller -->
+  <script src="./js/controller/PopupManagerController.js"></script>
+  <script src="./js/controller/PopupController.js"></script>
+  <script src="./js/controller/PopupBootstrapController.js"></script>
+
+    <!-- Popups -->
+    <script src="./js/controller/popups/PopupExample2Controller.js"></script>
+    <script src="./js/controller/popups/PopupExample3Controller.js"></script>
+
+    <!-- Tests -->
+    <script src="./js/controller/TestController.js"></script>
+    <script src="./js/controller/XHRController.js"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="./css/core/popups.css"/>
+  <link rel="stylesheet" type="text/css" href="./css/core/spiner.css"/>
+</head>
+<body ng-app="qul">
+  <popups>
+    <popup name="PopupExample" no-controller parent-controller="PopupBootstrapController" class="popup">
+      <div class="modal fade">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" ng-click="close()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <h4 class="modal-title">PopupExample</h4>
+            </div>
+            <div class="modal-body">
+              <div class="btn-group btn-group-justified">
+                <div class="btn btn-primary" ng-click="openOther('PopupExample2')">open loading</div>
+                <div class="btn btn-success" ng-click="openOther('PopupExample3', 'param1', 'param2', 'param3')">open with params</div>
+              </div>
+
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+                non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" ng-click="close()">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </popup>
+
+    <popup name="PopupExample2" parent-controller="PopupBootstrapController" class="popup">
+      <div class="modal fade">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" ng-click="close()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <h4 class="modal-title">PopupExample2</h4>
+            </div>
+            <div class="modal-body">
+              <p>One fine body&hellip;</p>
+              <ul>
+                <li ng-repeat="elem in elements">{{elem}}</li>
+              </ul>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" ng-click="sort()">Sort</button>
+              <button type="button" class="btn btn-default" ng-click="close()">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </popup>
+
+    <popup name="PopupExample3" parent-controller="PopupBootstrapController" class="popup">
+      <div class="modal fade">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" ng-click="close()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <h4 class="modal-title">PopupExample3</h4>
+            </div>
+            <div class="modal-body">
+              <p>Open params:</p>
+              <ul>
+                <li ng-repeat="(key, param) in params">[{{key}}]: {{param}}</li>
+              </ul>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-warning" ng-click="closeAll()">Close All</button>
+              <button type="button" class="btn btn-default" ng-click="close()">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </popup>
+
+    <popup name="PopupLoader" no-controller style="top: 0px; height: 100%; margin: 0; color: #fff; font-size: 46px; text-align: center;">
+      <div style="width: 100%; height: 100%; opacity: 0.2; background: #000; position: fixed;"></div>
+      <span style="margin-top: 100px;" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+    </popup>
+  </popups>
+
+  <div ng-controller="TestController">
+    <div class="btn-group">
+      <div class="btn btn-warning" ng-click="open('PopupExample')">open simple</div>
+      <div class="btn btn-primary" ng-click="open('PopupExample2')">open loading</div>
+      <div class="btn btn-success" ng-click="openPopupExample3('foo', 'bar', 'zar')">open with params 1</div>
+      <div class="btn btn-success" ng-click="openPopupExample3(10, 50, 100)">open with params 2</div>
+    </div>
+  </div>
+
+  <div ng-controller="XHRController" ng-init="init()">
+
+  </div>
+</body>
+</html>
